@@ -37,6 +37,7 @@ public class TheaterList {
     private String assignmentID;
     private String movieID;
     private String theaterID;
+    private Theater theater;
 
     public Theater getTheater() {
         return theater;
@@ -46,6 +47,6 @@ public class TheaterList {
         this.theater = theater;
     }
 
-    private Theater theater;
+
 
 }

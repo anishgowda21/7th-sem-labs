@@ -20,8 +20,9 @@ public class TheaterController {
     }
 
     @GetMapping("/getTheater/{theaterID}")
-    public Theater getTheater(@PathVariable String theaterID){
-        return theaterService.getTheater(theaterID);
+    public Theater getTheater(@RequestParam(required = false) String nl,@PathVariable String theaterID){
+        boolean noList = !(nl==null);
+        return theaterService.getTheater(theaterID,noList);
     }
 
     @PostMapping("/addTheater")

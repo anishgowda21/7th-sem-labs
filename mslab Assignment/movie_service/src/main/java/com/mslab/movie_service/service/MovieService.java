@@ -32,7 +32,11 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Movie getMovie(String movieId){
+    public Movie getMovie(String movieId,Boolean nl){
+
+        if (nl){
+            return movieRepository.findById(movieId).orElse(null);
+        }
 
         Movie movie = movieRepository.findById(movieId).orElse(null);
         TheaterList[]  runningTheaters = restTemplate.getForObject("http://localhost:3003/getRunningTheaters/"+movie.getMovieID(), TheaterList[].class);
@@ -41,9 +45,8 @@ public class MovieService {
 
         List<TheaterList> theaterLists =  theaters.stream().map(
                 theater ->{
-                    ResponseEntity<Theater> forTheater = restTemplate.getForEntity("http://localhost:3002/getTheater/"+theater.getTheaterID(),Theater.class);
+                    ResponseEntity<Theater> forTheater = restTemplate.getForEntity("http://localhost:3002/getTheater/"+theater.getTheaterID()+"?nl=true",Theater.class);
                     Theater the = forTheater.getBody();
-                    System.out.println(the.getTheaterID());
                     theater.setTheater(the);
                     return theater;
                 }

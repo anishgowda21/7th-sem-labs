@@ -20,8 +20,9 @@ public class MovieController {
     }
 
     @GetMapping("/getMovie/{movieID}")
-    public Movie getMovie(@PathVariable String movieID){
-        return movieService.getMovie(movieID);
+    public Movie getMovie(@RequestParam(required = false) String nl,@PathVariable String movieID){
+        boolean noList = !(nl == null);
+        return movieService.getMovie(movieID,noList);
     }
 
     @PostMapping("/insertMovie")

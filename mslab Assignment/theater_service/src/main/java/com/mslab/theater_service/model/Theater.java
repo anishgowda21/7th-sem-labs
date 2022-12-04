@@ -1,17 +1,17 @@
 package com.mslab.theater_service.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table
 @Entity
 public class Theater {
-    public Theater(String theaterID, String theaterName, String location) {
+    public Theater(String theaterID, String theaterName, String location,List<MovieList> movieLists) {
         this.theaterID = theaterID;
         this.theaterName = theaterName;
         this.location = location;
+        this.movieLists = movieLists;
     }
     public Theater(){}
 
@@ -45,5 +45,17 @@ public class Theater {
     private String theaterName;
     @Column
     private String location;
+    @Transient
+    private List<MovieList> movieLists = new ArrayList<>();
+
+
+    public List<MovieList> getMovieLists() {
+        return movieLists;
+    }
+
+    public void setMovieLists(List<MovieList> movieLists) {
+        this.movieLists = movieLists;
+    }
+
 
 }

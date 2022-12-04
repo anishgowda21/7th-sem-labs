@@ -1,0 +1,29 @@
+server:
+  port: 3081
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: movieModule
+          uri: http://localhost:3001/
+          predicates:
+            - Path: /getAllMovies/**,/getMovie/**
+        - id: theaterModule
+          uri: http://localhost:3002/
+          predicates:
+            - Path: /getAllTheaters/**,/getTheater/**
+        - id: theaterListModule
+          uri: http://localhost:3003/
+          predicates:
+            - Path: /getAllLists/**,/getMoviesInTheater/**,/getRunningTheaters/**
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:3000/eureka
+  registerWithEureka:
+    - true
+  fetchRegistry:
+    - true
